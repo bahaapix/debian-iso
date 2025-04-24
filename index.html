@@ -34,8 +34,9 @@ d-i user-setup/encrypt-home boolean false
 d-i passwd/user-default-groups string sudo audio cdrom dip video plugdev netdev lpadmin
 
 # Clock and time zone setup
+
+d-i time/zone string Africa/Algiers
 d-i clock-setup/utc boolean true
-d-i time/zone string UTC
 d-i clock-setup/ntp boolean true
 
 # Partitioning (wipe disk, LVM)
