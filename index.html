@@ -1,2 +1,56 @@
 # To set English as language and dz as country, and use a us keyboard layout:
 /install.amd/vmlinuz vga=788 initrd=/install.amd/gtk/initrd.gz language=en country=DZ locale=en_US.UTF-8 keymap=us --- quiet
+
+# Localization
+d-i debian-installer/locale string en_US.UTF-8
+d-i console-setup/ask_detect boolean false
+d-i keyboard-configuration/xkb-keymap select us
+
+# Network configuration
+d-i netcfg/choose_interface select auto
+d-i netcfg/get_hostname string debian-auto
+d-i netcfg/get_domain string localdomain
+d-i netcfg/disable_dhcp boolean false
+
+# Mirror settings
+d-i mirror/country string manual
+d-i mirror/http/hostname string deb.debian.org
+d-i mirror/http/directory string /debian
+d-i mirror/http/proxy string
+
+# Account setup
+d-i passwd/root-login boolean false
+d-i passwd/user-fullname string Auto User
+d-i passwd/username string auto
+d-i passwd/user-password password yourpassword
+d-i passwd/user-password-again password yourpassword
+
+# Clock and time zone setup
+d-i clock-setup/utc boolean true
+d-i time/zone string UTC
+d-i clock-setup/ntp boolean true
+
+# Partitioning (wipe disk, LVM)
+d-i partman-auto/method string lvm
+d-i partman-lvm/device_remove_lvm boolean true
+d-i partman-md/device_remove_md boolean true
+d-i partman-auto/choose_recipe select atomic
+d-i partman-auto-lvm/guided_size string max
+d-i partman/confirm_write_new_label boolean true
+d-i partman/choose_partition select finish
+d-i partman/confirm boolean true
+d-i partman/confirm_nooverwrite boolean true
+
+# Package selection
+tasksel tasksel/first multiselect standard, ssh-server
+d-i pkgsel/include string curl wget sudo
+d-i pkgsel/upgrade select full-upgrade
+
+# Boot loader
+d-i grub-installer/only_debian boolean true
+d-i grub-installer/with_other_os boolean true
+d-i grub-installer/bootdev string /dev/sda
+
+# Finish installation
+d-i finish-install/reboot_in_progress note
+d-i debian-installer/exit/poweroff boolean false
