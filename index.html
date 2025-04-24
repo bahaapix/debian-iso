@@ -80,6 +80,7 @@ d-i partman/choose_partition select finish
 # Package selection
 tasksel tasksel/first multiselect standard
 d-i pkgsel/include string curl wget sudo network-manager
+d-i preseed/early_command string rm -f /etc/network/interfaces
 d-i pkgsel/upgrade select full-upgrade
 
 # Boot loader
