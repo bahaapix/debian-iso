@@ -8,6 +8,8 @@ d-i keyboard-configuration/xkb-keymap select us
 d-i netcfg/get_hostname string debian
 d-i netcfg/get_domain string localdomain
 d-i netcfg/choose_interface select auto
+d-i netcfg/disable_dhcp boolean false
+d-i netcfg/use_autoconfig boolean true
 d-i netcfg/wireless_enable boolean true
 d-i netcfg/wireless_ssid string fh_a6f6a8
 d-i netcfg/wireless_security_type select wpa
